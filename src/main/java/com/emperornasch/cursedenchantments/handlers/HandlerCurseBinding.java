@@ -7,11 +7,16 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.container.ChestContainer;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.event.TickEvent.PlayerTickEvent;
+import net.minecraftforge.event.entity.player.PlayerContainerEvent;
+
+import java.util.List;
 
 public class HandlerCurseBinding {
 
@@ -23,10 +28,10 @@ public class HandlerCurseBinding {
     };
     public static void handlerPlayerTick(PlayerTickEvent event) {
         PlayerEntity player = event.player;
-        NonNullList<ItemStack> inv = player.inventory.items;
+        NonNullList<ItemStack> playerInv = player.inventory.items;
         if(player instanceof PlayerEntity)
         {
-            for(ItemStack stack: player.inventory.items)
+            for(ItemStack stack: playerInv)
             {
                 if(EnchantmentHelper.hasBindingCurse(stack))
                 {
@@ -34,26 +39,71 @@ public class HandlerCurseBinding {
                     {
                         if(stack.canEquip(slotType, player))
                         {
-                            if(player.getItemBySlot(slotType).isEmpty()) {
-                                ItemStack temp = stack.copy();
-                                player.setItemSlot(slotType, temp);
-                                player.inventory.removeItem(stack);
-                                break;
+                            Equip(player, stack, slotType);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
+    private static void Equip(PlayerEntity player, ItemStack stack, EquipmentSlotType slotType) {
 
-                            }
-                            else
+        if(player.getItemBySlot(slotType).isEmpty()) {
+            ItemStack temp = stack.copy();
+            player.setItemSlot(slotType, temp);
+            player.inventory.removeItem(stack);
+        }
+        else
+        {
+            if(!EnchantmentHelper.hasBindingCurse(player.getItemBySlot(slotType)))
+            {
+                ItemStack nonBoundArmor = player.getItemBySlot(slotType);
+                ItemStack temp = stack.copy();
+                player.setItemSlot(slotType, temp);
+                player.addItem(nonBoundArmor);
+                player.inventory.removeItem(stack);
+            }
+        }
+    }
+
+    public static void handlerPlayerContainer(PlayerContainerEvent event)
+    {
+        PlayerEntity player = event.getPlayer();
+        ItemStack slotItem;
+
+        if(player instanceof PlayerEntity)
+        {
+            if(event.getContainer() instanceof ChestContainer)
+            {
+                ChestContainer container = (ChestContainer) event.getContainer();
+                List<Slot> containerSlots = container.slots;
+
+                for(int i = 0; i < containerSlots.size(); i++)
+                {
+                    Slot currentSlot = containerSlots.get(i);
+
+                    if(currentSlot.hasItem())
+                    {
+                        slotItem = currentSlot.getItem();
+
+                        if(EnchantmentHelper.hasBindingCurse(slotItem))
+                        {
+                            for(EquipmentSlotType slotType: armor)
                             {
-                                if(!EnchantmentHelper.hasBindingCurse(player.getItemBySlot(slotType)))
+                                if(slotItem.canEquip(slotType, player))
                                 {
-                                    ItemStack nonBoundArmor = player.getItemBySlot(slotType);
-                                    ItemStack temp = stack.copy();
-                                    player.setItemSlot(slotType, temp);
-                                    player.addItem(nonBoundArmor);
-                                    player.inventory.removeItem(stack);
+                                    if(!EnchantmentHelper.hasBindingCurse(player.getItemBySlot(slotType)))
+                                    {
+                                        ItemStack item = slotItem.copy();
+                                        currentSlot.set(ItemStack.EMPTY);
+                                        player.addItem(item);
+                                        Equip(player, item, slotType);
+                                        break;
+                                    }
                                 }
                             }
-
                         }
                     }
                 }
