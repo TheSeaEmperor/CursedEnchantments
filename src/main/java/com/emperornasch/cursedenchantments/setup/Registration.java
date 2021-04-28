@@ -12,14 +12,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class Registration {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, CursedEnchantments.MOD_ID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, CursedEnchantments.MOD_ID);
-    //public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, CursedEnchantments.MOD_ID);
 
     public static void register()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
-        //ENCHANTMENTS.register(modEventBus);
 
         ModBlocks.register();
         ModItems.register();

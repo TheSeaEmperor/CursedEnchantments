@@ -1,4 +1,4 @@
-package com.emperornasch.cursedenchantments.setup;
+package com.emperornasch.cursedenchantments.subscribers;
 
 import com.emperornasch.cursedenchantments.CursedEnchantments;
 import com.emperornasch.cursedenchantments.handlers.HandlerCurseBinding;
