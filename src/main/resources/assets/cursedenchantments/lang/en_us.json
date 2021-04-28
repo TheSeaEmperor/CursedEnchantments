@@ -1,4 +1,6 @@
 {
   "item.cursedenchantments.test_object": "Test Object",
-  "block.cursedenchantments.test_block": "Test Block"
+  "block.cursedenchantments.test_block": "Test Block",
+
+  "enchantment.cursedenchantments.curse_ardentflames": "Curse of Ardent Flames"
 }
