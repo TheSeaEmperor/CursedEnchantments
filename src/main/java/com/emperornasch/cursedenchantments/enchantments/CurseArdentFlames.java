@@ -10,7 +10,7 @@ public class CurseArdentFlames extends BasicEnchantment
     public CurseArdentFlames(String registryName)
     {
         super(registryName, Rarity.RARE, EnchantmentType.ARMOR, new EquipmentSlotType[]
-                {EquipmentSlotType.HEAD, EquipmentSlotType.CHEST, EquipmentSlotType.LEGS, EquipmentSlotType.FEET});
+                {EquipmentSlotType.FEET});
     }
 
     @Override
