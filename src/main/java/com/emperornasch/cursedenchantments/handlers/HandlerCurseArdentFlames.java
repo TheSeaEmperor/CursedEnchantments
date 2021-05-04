@@ -33,7 +33,7 @@ public class HandlerCurseArdentFlames {
         int enchLvl = EnchantmentHelper.getItemEnchantmentLevel(CURSE_ARDENTFLAMES, playerBoots);
         if(enchLvl == 0) return;
         mobList = worldInstance.getNearbyEntities(LivingEntity.class, EntityPredicate.DEFAULT, player,
-                player.getBoundingBox().inflate(3, 3, 3));
+                player.getBoundingBox().inflate(5, 3, 5));
         if(mobList.size() != 0)
         {
             //EffectInstance effectInstance = new EffectInstance(Effects.)
