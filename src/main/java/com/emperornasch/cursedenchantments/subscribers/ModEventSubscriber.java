@@ -3,6 +3,7 @@ package com.emperornasch.cursedenchantments.subscribers;
 import com.emperornasch.cursedenchantments.CursedEnchantments;
 import com.emperornasch.cursedenchantments.enchantments.BasicEnchantment;
 import com.emperornasch.cursedenchantments.enchantments.CurseArdentFlames;
+import com.emperornasch.cursedenchantments.enchantments.CurseSummoning;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.util.ResourceLocation;
@@ -25,6 +26,7 @@ public class ModEventSubscriber {
         ArrayList<BasicEnchantment> enchantments = new ArrayList<>();
 
         enchantments.add(new CurseArdentFlames("curse_ardentflames"));
+        enchantments.add(new CurseSummoning("curse_summoning"));
 
         enchantments.forEach((e) ->{
             registry.register((setup(e, e.getRegistry())));

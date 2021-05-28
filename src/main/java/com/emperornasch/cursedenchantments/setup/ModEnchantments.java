@@ -6,6 +6,7 @@ import com.emperornasch.cursedenchantments.utils.ModUtils;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
@@ -14,5 +15,6 @@ import net.minecraftforge.registries.ObjectHolder;
 public final class ModEnchantments {
 
     public static final Enchantment CURSE_ARDENTFLAMES = ModUtils._null();
+    public static final Enchantment CURSE_SUMMONING = ModUtils._null();
 
 }
