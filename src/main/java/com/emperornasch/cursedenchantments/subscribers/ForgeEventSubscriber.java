@@ -3,6 +3,7 @@ package com.emperornasch.cursedenchantments.subscribers;
 import com.emperornasch.cursedenchantments.CursedEnchantments;
 import com.emperornasch.cursedenchantments.handlers.HandlerCurseArdentFlames;
 import com.emperornasch.cursedenchantments.handlers.HandlerCurseBinding;
+import com.emperornasch.cursedenchantments.handlers.HandlerCurseSummoning;
 import net.minecraft.command.arguments.NBTCompoundTagArgument;
 import net.minecraft.command.arguments.NBTTagArgument;
 import net.minecraft.enchantment.Enchantment;
@@ -32,6 +33,7 @@ public class ForgeEventSubscriber {
 
         HandlerCurseBinding.handlerPlayerTick(event);
         HandlerCurseArdentFlames.handlerPlayerTick(event);
+        HandlerCurseSummoning.handlerPlayerTick(event);
     }
 
     @SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
